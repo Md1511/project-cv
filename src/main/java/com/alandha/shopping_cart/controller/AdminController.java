@@ -57,6 +57,7 @@ public class AdminController {
 
 
 
+
     @GetMapping("/")
     public String index() {
         return "admin/index";
@@ -562,6 +563,11 @@ public class AdminController {
         User user = uservice.findUserByEmail(email);
 
         return user;
+    }
+
+    @ExceptionHandler
+    public String handleException(Exception ex) {
+        return "error";
     }
 
 

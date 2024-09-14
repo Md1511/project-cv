@@ -297,6 +297,9 @@ public class HomeController {
         }
     }
 
+
+
+
 //    @PostMapping("/search")
 //    public String searchProduct(@RequestParam String keyword, Model model) {
 //
