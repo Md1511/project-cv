@@ -1,0 +1,98 @@
+<!doctype html>
+<html
+        lang="en" xmlns:th="http://www.thymeleaf.org"
+        th:replace="~{base::layout(~{::section})}">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <section>
+        <div class="container p-5">
+            <p class="text-center fs-3 mt-4">Admin Dashboard</p>
+            <div class="row p-5">
+                <div class="col-md-4 mt-2">
+                    <a href="loadAddProduct" class="text-decoration-none">
+                        <div class="card card-sh">
+                            <div class="card-body text-center">
+                                <i class="fa-solid fa-3x fa-square-plus"></i>
+                                <h4>Add Product</h4>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+
+                <div class="col-md-4 mt-2">
+                    <a href="category" class="text-decoration-none">
+                        <div class="card card-sh">
+                            <div class="card-body text-center text-warning">
+                                <i class="fa-solid fa-list fa-3x"></i>
+                                <h4>Category</h4>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+
+                <div class="col-md-4 mt-2">
+                    <a href="products" class="text-decoration-none">
+                        <div class="card card-sh">
+                            <div class="card-body text-center">
+                                <i class="fa-solid fa-table-list fa-3x text-danger"></i>
+                                <h4>View Product</h4>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+
+                <div class="col-md-4 mt-4">
+                    <a href="orders" class="text-decoration-none">
+                        <div class="card card-sh">
+                            <div class="card-body text-center">
+                                <i class="fa-solid fa-3x fa-box-open text-success"></i>
+                                <h4>Orders</h4>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+
+                <div class="col-md-4 mt-4">
+                    <a href="users" class="text-decoration-none">
+                        <div class="card card-sh">
+                            <div class="card-body text-center">
+                                <i class="fa-solid fa-3x fa-user"></i>
+                                <h4>User</h4>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+
+                <div class="col-md-4 mt-4">
+                    <a href="/admin/add-admin" class="text-decoration-none">
+                        <div class="card card-sh">
+                            <div class="card-body text-center">
+                                <i class="fa-solid fa-3x fa-people-roof"></i>
+                                <h4>Add Admin</h4>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+
+                <div class="col-md-4 mt-4">
+                    <a href="admins" class="text-decoration-none">
+                        <div class="card card-sh">
+                            <div class="card-body text-center">
+<!--                                <i class="fa-solid fa-3x fa-box-open text-success"></i>-->
+                                <i class="fa-solid fa-3x fa-user-tie text-success"></i>
+                                <h4>ADMIN</h4>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+</body>
+</html>

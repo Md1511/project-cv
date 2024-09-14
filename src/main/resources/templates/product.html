@@ -1,0 +1,229 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+        th:replace="~{base::layout(~{::section})}">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <section>
+        <div class="container-fluid bg-primary p-5 mt-2">
+            <div class="row">
+                <div class="offset-md-2 col-md-8">
+                    <form action="/productskey" method="get">
+                        <div class="input-group">
+                            <input type="text" class="form-control" name="keyword">
+                            <button class="btn btn-light text-dark"><i class="fa-solid fa-magnifying-glass"></i> Search</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <div class="container-fluid mt-1">
+            <div class="row">
+                <div class="col-md-2 p-0">
+                    <div class="card shadow p-0 mb-5 bg-body rounded">
+                        <div class="card-body">
+                            <th:block th:if="${categories}">
+                                <th:block th:if="${oke==false}">
+                                    <div class="list-group">
+                                        <p class="fs-4">Category</p>
+
+                                        <a href="/products" class="list-group-item list-group-item-action"
+                                           aria-current="true" th:classappend="${paramValue== ''} ? 'active' : ''">
+                                            All Categories
+                                        </a>
+                                        <a th:each="c:${categories}"
+                                           th:href="@{'/products?categoryy=' + ${c.name}}"
+                                           th:classappend="${paramValue == c.name} ? 'active' : '' "
+                                           class="list-group-item list-group-item-action">
+                                            [[${c.name}]]
+                                        </a>
+                                    </div>
+                                </th:block>
+
+                                <th:block th:if="${oke==true}">
+                                    <div class="list-group">
+                                        <p class="fs-4">Category</p>
+
+                                        <a href="/products" class="list-group-item list-group-item-action"
+                                           aria-current="true">
+                                            All Categories
+                                        </a>
+                                    </div>
+                                </th:block>
+                            </th:block>
+
+                            <th:block th:unless="${categories}">
+                                <div class="list-group">
+                                    <p class="fs-4">Category</p>
+                                    <a href="/products" class="list-group-item list-group-item-action"
+                                       aria-current="true">
+                                        All Categories
+                                    </a>
+                                </div>
+                            </th:block>
+                </div>
+                    </div>
+                </div>
+                <div class="col-md-10">
+                    <div class="card shadow p-3 mb-5 bg-body rounded">
+                        <div class="card-body">
+                            <p class="fs-3 text-center">Products</p>
+                            <div class="row">
+
+
+                                <th:block th:if="${oke==false}">
+                                <th:block th:if="${productsSize > 0 || !products.isEmpty() && oke==true}">
+                            <div class="col-md-3" th:each="p:${products}">
+                                <div class="card">
+                                    <div class="card-body text-center">
+                                        <img th:src="@{'/img/product_img/' + ${p.image}}"  width="100%" height="150px" alt="">
+                                        <p class="fs-5 text-center">[[${p.title}]]</p>
+                                        <th:block th:if="${p.discount>0}">
+                                            <div class="row text-center">
+                                                <p class="fs-6 fw-bold ">
+                                                    <i class="fa-solid fa-dollar-sign"></i>
+                                                    <span class="text-decoration-line-through text-secondary">[[${p.price}]]</span>
+                                                    <span class="fs-5">[[${#numbers.formatDecimal(p.discountPrice, 1, 2)}]]</span>
+                                                    <span class="fs-6 text-success fw-bold"> [[${p.discount}]]% off</span>
+                                                </p>
+                                                <a th:href="@{'/product/' + ${p.id}}" class="btn btn-primary col-md-6 offset-md-3">View Details</a>
+                                            </div>
+                                        </th:block>
+
+                                        <th:block th:unless="${p.discount>0}">
+                                            <div class="row text-center">
+                                                <p class="fs-6 fw-bold ">
+                                                    <i class="fa-solid fa-dollar-sign"></i>
+                                                    <span class="fs-5">[[${#numbers.formatDecimal(p.discountPrice, 1, 2)}]]</span>
+                                                </p>
+                                                <a th:href="@{'/product/' + ${p.id}}" class="btn btn-primary col-md-6 offset-md-3">View Details</a>
+                                            </div>
+                                        </th:block>
+                                    </div>
+                                </div>
+                            </div>
+                                </th:block>
+                                </th:block>
+
+
+                                <th:block th:if="${oke==true}">
+                                <th:block th:if="${productsSize > 0 || !products.isEmpty()}">
+                                    <div class="col-md-3" th:each="p:${products}">
+                                        <div class="card">
+                                            <div class="card-body text-center">
+                                                <img th:src="@{'/img/product_img/' + ${p.image}}"  width="100%" height="150px" alt="">
+                                                <p class="fs-5 text-center">[[${p.title}]]</p>
+                                                <th:block th:if="${p.discount>0}">
+                                                    <div class="row text-center">
+                                                        <p class="fs-6 fw-bold ">
+                                                            <i class="fa-solid fa-dollar-sign"></i>
+                                                            <span class="text-decoration-line-through text-secondary">[[${p.price}]]</span>
+                                                            <span class="fs-5">[[${#numbers.formatDecimal(p.discountPrice, 1, 2)}]]</span>
+                                                            <span class="fs-6 text-success fw-bold"> [[${p.discount}]]% off</span>
+                                                        </p>
+                                                        <a th:href="@{'/product/' + ${p.id}}" class="btn btn-primary col-md-6 offset-md-3">View Details</a>
+                                                    </div>
+                                                </th:block>
+
+                                                <th:block th:unless="${p.discount>0}">
+                                                    <div class="row text-center">
+                                                        <p class="fs-6 fw-bold ">
+                                                            <i class="fa-solid fa-dollar-sign"></i>
+                                                            <span class="fs-5">[[${#numbers.formatDecimal(p.discountPrice, 1, 2)}]]</span>
+                                                        </p>
+                                                        <a th:href="@{'/product/' + ${p.id}}" class="btn btn-primary col-md-6 offset-md-3">View Details</a>
+                                                    </div>
+                                                </th:block>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </th:block>
+                                </th:block>
+
+
+
+
+
+                                <th:block th:unless="${productsSize > 0 || !products.isEmpty()}">
+                                    <p class="fs-4 text-center mt-4 text-danger">Product not available</p>
+                                </th:block>
+                                <!--                                TODO: Remove after backend implement-->
+                            </div>
+                        </div>
+                    </div>
+<!--                    Start Pagination-->
+                    <div class="row">
+                        <th:block th:if="${totalElements > 0}">
+                            <div class="col-md-4">Total Products : [[${totalElements}]] </div>
+                        </th:block>
+
+                        <th:block th:if="${totalElements==null}">
+                            <div class="col-md-4">Total Products : [[${products.size()}]] </div>
+                        </th:block>
+
+                        <th:block th:if="${oke==false}">
+                            <div class="col-md-6">
+                                <th:block th:if="${productsSize >0 }">
+                                <nav aria-label="Page navigation example">
+                                    <ul class="pagination">
+                                        <li class="page-item">
+                                            <a class="page-link" th:classappend="${isFirst} ? 'disabled' : ''" th:href="@{'/products?pageNo=' + ${pageNo - 1}}" aria-label="Previous">
+                                                <span aria-hidden="true">&laquo;</span>
+                                            </a>
+                                        </li>
+
+                                        <li th:each="i:${#numbers.sequence(1, totalPages)}" class="page-item" th:classappend="${pageNo + 1==i} ? 'active' : ''">
+                                            <a class="page-link" th:href="@{'/products?pageNo=' + ${i - 1}}">[[${i}]]</a></li>
+<!--                                        <li class="page-item"><a class="page-link" href="#">2</a></li>-->
+<!--                                        <li class="page-item"><a class="page-link" href="#">3</a></li>-->
+                                        <li class="page-item">
+                                            <a class="page-link" th:classappend="${isLast} ? 'disabled' : ''" th:href="@{'/products?pageNo=' + ${pageNo + 1}}" aria-label="Next">
+                                                <span aria-hidden="true">&raquo;</span>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </nav>
+                                </th:block>
+                            </div>
+                        </th:block>
+
+                        <th:block th:unless="${oke==false}">
+                            <div class="col-md-6">
+                                <th:block th:if="${productsSize >0 }">
+                                    <nav aria-label="Page navigation example">
+                                        <ul class="pagination">
+                                            <li class="page-item">
+                                                <a class="page-link" th:classappend="${isFirst} ? 'disabled' : ''" th:href="@{'/productskey?pageNo=' + ${pageNo - 1} + '&keyword=' + ${key}}" aria-label="Previous">
+                                                    <span aria-hidden="true">&laquo;</span>
+                                                </a>
+                                            </li>
+
+                                            <li th:each="i:${#numbers.sequence(1, totalPages)}" class="page-item" th:classappend="${pageNo + 1==i} ? 'active' : ''">
+                                                <a class="page-link" th:href="@{'/productskey?pageNo=' + ${i - 1} + '&keyword=' + ${key}}">[[${i}]]</a></li>
+                                            <!--                                        <li class="page-item"><a class="page-link" href="#">2</a></li>-->
+                                            <!--                                        <li class="page-item"><a class="page-link" href="#">3</a></li>-->
+                                            <li class="page-item">
+                                                <a class="page-link" th:classappend="${isLast} ? 'disabled' : ''" th:href="@{'/productskey?pageNo=' + ${pageNo + 1} + '&keyword=' + ${key}}" aria-label="Next">
+                                                    <span aria-hidden="true">&raquo;</span>
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </nav>
+                                </th:block>
+                            </div>
+                        </th:block>
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+</body>
+</html>

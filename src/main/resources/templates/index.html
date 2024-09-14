@@ -1,0 +1,82 @@
+<!doctype html>
+<html
+        lang="en" xmlns:th="http://www.thymeleaf.org"
+        th:replace="~{base::layout(~{::section})}">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+
+<section>
+<!--Start Slider-->
+    <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
+        <div class="carousel-inner">
+            <div class="carousel-item active">
+                <img height="350px" src="https://t3.ftcdn.net/jpg/02/71/77/56/360_F_271775672_yo8ZgraN2IHGbfqP2k0PsLjwvmatUNUJ.jpg" class="d-block w-100" alt="...">
+            </div>
+            <div class="carousel-item">
+                <img height="350px" src="https://t3.ftcdn.net/jpg/02/78/09/56/240_F_278095697_4s3zKPbZHKaezaTFCGfvz0Ja5ADKlNof.jpg" class="d-block w-100" alt="...">
+            </div>
+            <div class="carousel-item">
+                <img height="350px" src="https://as2.ftcdn.net/v2/jpg/04/58/83/27/1000_F_458832788_fubmpk1THG2tIfI9dMIIWGZhNXA0vTO4.jpg" class="d-block w-100" alt="...">
+            </div>
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+        </button>
+    </div>
+<!--End Slider-->
+
+    <!--Start Category Module-->
+    <div class="container">
+        <div class="row">
+            <p class="text-center fs-4">Category</p>
+
+                <div class="col-md-2" th:each="c:${categories}">
+                    <a class="text-decoration-none" th:href="@{'/products?categoryy=' + ${c.name}}">
+                        <div  class="card rounded-circle shadow-none p-3 mb-5 bg-light rounded">
+                            <div class="card-body text-center">
+                                <img th:src="@{'/img/category_img/' + ${c.imageName}}" alt="" width="65%" height="140px">
+                                <p class="mt-2">[[${c.name}]]</p>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+
+
+        </div>
+    </div>
+    <!--End Category Module-->
+
+    <!--Start Latest Product Module-->
+    <div class="container-fluid bg-light p-3">
+        <div class="row">
+            <p class="text-ceter fs-4">Latest Product</p>
+
+            <div class="col-md-3" th:each="p:${products}">
+                <a class="text-decoration-none" th:href="@{'/product/' + ${p.id}}">
+                <div class="card">
+                    <div class="card-body text-center shadow-none p-3 mt-3 mb-5 bg-light rounded">
+                        <img th:src="@{'/img/product_img/' + ${p.image}}" alt="" height="140px" width="65%">
+                        <p class="text-center mt-5 text-dark">[[${p.title}]]</p>
+                    </div>
+                </div>
+                </a>
+            </div>
+        </div>
+    </div>
+    <!--End Latest Product Module-->
+
+</section>
+
+</body>
+</html>

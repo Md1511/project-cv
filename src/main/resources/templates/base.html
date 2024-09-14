@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+    th:fragment="layout(content)">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+
+</head>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+<link rel="stylesheet" href="/css/style.css">
+<body>
+
+<!--Start Navbar-->
+<nav class="navbar navbar-expand-lg bg-primary fixed-top navbar-dark">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="#"><i class="fa-solid fa-cart-shopping"></i> Alan Store</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+
+
+                <th:block th:if="${userr==null || userr.role=='ROLE_USER'}">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="/"><i class="fa-solid fa-house"></i> Home</a>
+                    </li>
+                </th:block>
+
+
+
+                <th:block th:unless="${userr==null}">
+                    <li class="nav-item">
+                        <a th:if="${userr.role=='ROLE_ADMIN'}" class="nav-link active" aria-current="page" href="/admin/"><i class="fa-solid fa-house"></i> Home</a>
+                    </li>
+                </th:block>
+
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="/products">Product</a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        Category
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li th:each="c:${categories}">
+                            <a class="dropdown-item" th:href="@{'/products?categoryy=' + ${c.name}}">[[${c.name}]]</a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+
+
+            <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                <th:block th:if="${userr==null}">
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="/signin"><i class="fa-solid fa-right-to-bracket"></i> LOGIN</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="/register">REGISTER</a>
+                </li>
+
+<!--                <li class="nav-item">-->
+<!--                    <a class="nav-link active" aria-current="page" href="#">ADMIN</a>-->
+<!--                </li>-->
+
+                </th:block>
+
+
+                <th:block th:unless="${userr==null}">
+                    <th:block th:if="${userr.role=='ROLE_USER'}">
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="/user/cart">
+                                <i class="fa-solid fa-cart-shopping"></i> Cart[ [[${countCart}]] ]</a>
+                        </li>
+                    </th:block>
+
+
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle active" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="fa-solid fa-user"></i> [[${userr.name}]]
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li th:if="${userr.role=='ROLE_USER'}"><a class="dropdown-item" href="/user/profile">Profile</a></li>
+
+                            <li th:unless="${userr.role=='ROLE_USER'}"><a class="dropdown-item" href="/admin/profile">Profilee</a></li>
+
+
+                            <li th:if="${userr.role=='ROLE_USER'}"><a class="dropdown-item" href="/user/user-orders">My Orders</a></li>
+                            <li><a class="dropdown-item" href="/logout">Logout</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                        </ul>
+                    </li>
+
+<!--                    <li class="nav-item">-->
+<!--                        <a class="nav-link active" aria-current="page" href="/logout"><i class="fa-solid fa-right-from-bracket"></i> Logout</a>-->
+<!--                    </li>-->
+                </th:block>
+
+            </ul>
+        </div>
+    </div>
+</nav>
+
+
+<!--End Navbar-->
+
+    <div th:replace ="${content}"></div>
+
+<!--Start Footer-->
+<div class="container-fluid p-1 bg-primary text-center text-white" style="margin-top: 266px">
+    <p>AlanStore.com</p>
+</div>
+<!--End Footer-->
+
+<!--Jquery Validation Library-->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.5/dist/jquery.validate.js"></script>
+<script type="text/javascript" src="js/script.js"></script>
+<!--End-->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
+</body>
+</html>
