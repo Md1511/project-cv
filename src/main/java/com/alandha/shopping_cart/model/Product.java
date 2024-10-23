@@ -40,8 +40,10 @@ public class Product {
     private Double price;
 
     @NotNull(message = "Stock cannot be null")
-    @Positive(message = "Stock must be positive")
+//    @Positive(message = "Stock must be positive")
     private int stock;
+
+    private int sold;
 
     private String image;
 

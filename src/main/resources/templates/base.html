@@ -1,20 +1,45 @@
 <!doctype html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org"
-    th:fragment="layout(content)">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:fragment="layout(content)">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
-
 </head>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
 <link rel="stylesheet" href="/css/style.css">
+<style>
+    /* Ensure body and html take up full height */
+    html, body {
+        height: 100%;
+        margin: 0;
+    }
+
+    /* Make the main content area take up all available space except the footer */
+    body {
+        display: flex;
+        flex-direction: column;
+        min-height: 100vh;
+    }
+
+    /* Content section should take available space */
+    main {
+        flex: 1;
+    }
+
+    /* Footer should be fixed at the bottom of the page */
+    .container-fluid.bg-primary {
+        position: relative;
+        bottom: 0;
+        width: 100%;
+        margin-top: auto; /* Ensure it stays at the bottom */
+    }
+
+</style>
 <body>
 
-<!--Start Navbar-->
+<!-- Start Navbar -->
 <nav class="navbar navbar-expand-lg bg-primary fixed-top navbar-dark">
     <div class="container-fluid">
         <a class="navbar-brand" href="#"><i class="fa-solid fa-cart-shopping"></i> Alan Store</a>
@@ -57,16 +82,16 @@
 
             <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
                 <th:block th:if="${userr==null}">
-                <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="/signin"><i class="fa-solid fa-right-to-bracket"></i> LOGIN</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="/register">REGISTER</a>
-                </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="/signin"><i class="fa-solid fa-right-to-bracket"></i> LOGIN</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="/register">REGISTER</a>
+                    </li>
 
-<!--                <li class="nav-item">-->
-<!--                    <a class="nav-link active" aria-current="page" href="#">ADMIN</a>-->
-<!--                </li>-->
+                    <!--                <li class="nav-item">-->
+                    <!--                    <a class="nav-link active" aria-current="page" href="#">ADMIN</a>-->
+                    <!--                </li>-->
 
                 </th:block>
 
@@ -96,32 +121,31 @@
                         </ul>
                     </li>
 
-<!--                    <li class="nav-item">-->
-<!--                        <a class="nav-link active" aria-current="page" href="/logout"><i class="fa-solid fa-right-from-bracket"></i> Logout</a>-->
-<!--                    </li>-->
+                    <!--                    <li class="nav-item">-->
+                    <!--                        <a class="nav-link active" aria-current="page" href="/logout"><i class="fa-solid fa-right-from-bracket"></i> Logout</a>-->
+                    <!--                    </li>-->
                 </th:block>
 
             </ul>
         </div>
     </div>
 </nav>
+<!-- End Navbar -->
 
+<main th:replace="${content}"></main>
 
-<!--End Navbar-->
-
-    <div th:replace ="${content}"></div>
-
-<!--Start Footer-->
-<div class="container-fluid p-1 bg-primary text-center text-white" style="margin-top: 266px">
+<!-- Start Footer -->
+<div class="container-fluid p-1 bg-primary text-center text-white">
     <p>AlanStore.com</p>
 </div>
-<!--End Footer-->
+<!-- End Footer -->
 
-<!--Jquery Validation Library-->
+<!-- jQuery Validation Library -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.5/dist/jquery.validate.js"></script>
 <script type="text/javascript" src="js/script.js"></script>
-<!--End-->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
+
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
 </body>
 </html>

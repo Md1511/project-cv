@@ -1,6 +1,7 @@
 package com.alandha.shopping_cart.service;
 
 import com.alandha.shopping_cart.model.Cart;
+import org.springframework.ui.Model;
 
 import java.util.List;
 
@@ -11,5 +12,5 @@ public interface CartService {
 
     public Integer getCountCart(Integer userId);
 
-    public void updateQuantity(String sy, Integer cid);
+    public void  updateQuantity(String sy, Integer cid);
 }

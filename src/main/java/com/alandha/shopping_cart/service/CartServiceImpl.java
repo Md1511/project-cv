@@ -8,6 +8,7 @@ import com.alandha.shopping_cart.repository.ProductRepository;
 import com.alandha.shopping_cart.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.ui.Model;
 import org.springframework.util.ObjectUtils;
 
 import java.util.ArrayList;
@@ -44,7 +45,11 @@ public class CartServiceImpl implements CartService{
             cart.setTotalPrice(1 * product.getPrice());
         } else {
             cart = cartStus;
-            cart.setQuantity(cartStus.getQuantity() + 1);
+            if(product.getStock() > cartStus.getQuantity()) {
+                cart.setQuantity(cartStus.getQuantity() + 1);
+            } else {
+                cart.setQuantity(cartStus.getQuantity());
+            }
             cart.setTotalPrice(cart.getQuantity() * cart.getProduct().getDiscountPrice());
         }
         return cartRepository.save(cart);
@@ -89,11 +94,14 @@ public class CartServiceImpl implements CartService{
                 cartRepository.save(cart);
             }
         } else {
+            Product product = cart.getProduct();
             updateQuantity = cart.getQuantity()+1;
             cart.setQuantity(updateQuantity);
-            cartRepository.save(cart);
+            if(product.getStock() >= updateQuantity) {
+                cartRepository.save(cart);
+
+            }
+//            cartRepository.save(cart);
         }
-
-
     }
 }

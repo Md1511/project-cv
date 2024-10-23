@@ -86,6 +86,12 @@ public class HomeController {
                 .sorted((p1,p2)->p2.getId().compareTo(p1.getId()))
                 .limit(4).toList());
 
+        model.addAttribute("bestSeller", pservice.getAllProducts().stream()
+                .filter(p -> p.getSold() > 0)  // Chỉ giữ lại các sản phẩm có số lượng đã bán > 0
+                .sorted((p1, p2) -> Integer.compare(p2.getSold(), p1.getSold()))  // So sánh dựa trên số lượng đã bán
+                .limit(6)  // Giới hạn 6 sản phẩm
+                .toList());
+
 
         return "index";
     }

@@ -9,6 +9,7 @@
     <title>Document</title>
 </head>
 <body>
+
 <section>
     <div class="container-fluid mt-5 p-5">
 
@@ -41,8 +42,10 @@
                     <tbody>
                     <tr th:each="cart,c:${carts}">
                         <th scope="row">[[${c.count}]]</th>
-                        <td><img width="50px" height="66px" th:src="@{'/img/product_img/' + ${cart.product.image}}" alt=""></td>
-                        <td>[[${cart.product.title}]]</td>
+
+                        <td><a th:href="@{'/product/' + ${cart.product.id}}"><img width="50px" height="66px" th:src="@{'/img/product_img/' + ${cart.product.image}}" alt=""></a></td>
+
+                        <td>  <a class="text-decoration-none text-dark" th:href="@{'/product/' + ${cart.product.id}}">[[${cart.product.title}]]</a></td>
                         <td>[[${#numbers.formatDecimal(cart.product.discountPrice, 1, 2)}]]</td>
                         <td class="text-center">
                             <a th:href="@{'/user/cartQuantityUpdate?sy=de&cid=' + ${cart.id}}"><i class="fa-solid fa-minus"></i></a>
@@ -53,13 +56,24 @@
                         <td>[[${#numbers.formatDecimal(cart.totalPrice, 1, 2)}]]</td>
 
                     </tr>
-                    
+                    <th:block th:if="${countCart > 0}">
                     <tr>
                         <td colspan="4"></td>
                         <td class="fw-bold">Total Price</td>
                         <td class="fw-bold">[[${#numbers.formatDecimal(totalOrderPrice, 1, 2)}]] $</td>
                         <td><a href="/user/orders" class="btn btn-primary">Proceed Payment</a></td>
                     </tr>
+                    </th:block>
+
+                    <th:block th:unless="${countCart > 0}">
+                        <tr>
+                            <td colspan="4"></td>
+                            <td class="fw-bold">Total Price</td>
+                            <td class="fw-bold">0</td>
+<!--                            <td><a href="/user/orders" class="btn btn-primary">Proceed Payment</a></td>-->
+                        </tr>
+                    </th:block>
+
                     </tbody>
                 </table>
             </div>
@@ -67,5 +81,7 @@
     </div>
 
 </section>
+
 </body>
+
 </html>

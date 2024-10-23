@@ -61,6 +61,7 @@
                                <th scope="col">Discount Price</th>
                                <th scope="col">Status</th>
                                <th scope="col">Stock</th>
+                               <th scope="col">Sold</th>
                                <th scope="col">Action</th>
                            </tr>
                            </thead>
@@ -78,6 +79,8 @@
                                            <td>[[${#numbers.formatDecimal(pro.discountPrice, 1, 2)}]]</td>
                                            <td>[[${pro.isActive}]]</td>
                                            <td>[[${pro.stock}]]</td>
+                                            <td>[[${pro.sold}]]</td>
+
                                            <td>
                                                <a th:href="@{'/admin/editProduct/' + ${pro.id}}" class="btn btn-primary btn-sm fa-2x"><i class="fa-solid fa-pen-to-square fa-1x"></i>Edit</a>
 

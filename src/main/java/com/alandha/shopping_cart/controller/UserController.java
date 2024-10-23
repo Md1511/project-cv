@@ -1,9 +1,6 @@
 package com.alandha.shopping_cart.controller;
 
-import com.alandha.shopping_cart.model.Cart;
-import com.alandha.shopping_cart.model.OrderRequest;
-import com.alandha.shopping_cart.model.ProductOrder;
-import com.alandha.shopping_cart.model.User;
+import com.alandha.shopping_cart.model.*;
 import com.alandha.shopping_cart.service.CartService;
 import com.alandha.shopping_cart.service.OrderService;
 import com.alandha.shopping_cart.service.UserService;
@@ -55,9 +52,14 @@ public class UserController {
     public String addToCart(@RequestParam Integer pid, @RequestParam Integer uid, HttpSession session) {
         Cart saveCart = cartService.saveCart(pid, uid);
 
+        Product product = saveCart.getProduct();
+
         if(ObjectUtils.isEmpty(saveCart)) {
             session.setAttribute("errorMsg", "Product add to cart failed");
-        } else {
+        } else if(product.getStock() <= saveCart.getQuantity()) {
+            session.setAttribute("errorMsg", "Currently, the quantity of this product in our stock is insufficient. We apologize for the inconvenience");
+        }
+        else {
             session.setAttribute("succMsg", "Product added to cart successfully");
         }
 
@@ -165,7 +167,7 @@ public class UserController {
 
 
     @PostMapping("/update-profile")
-    public String updateProfile(@ModelAttribute User user, @RequestParam MultipartFile img, HttpSession session) throws MessagingException, UnsupportedEncodingException {
+    public String updateProfile(@ModelAttribute("userr") User user, @RequestParam MultipartFile img, HttpSession session) throws MessagingException, UnsupportedEncodingException {
 
         User user1r = uService.updateUserProfile(user, img);
         if(ObjectUtils.isEmpty(user1r)) {

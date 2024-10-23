@@ -76,6 +76,127 @@
     </div>
     <!--End Latest Product Module-->
 
+    <!--Start the best seller Product Module-->
+<th:block th:if="${bestSeller.size() >= 6}" >
+    <div class="container-fluid bg-light p-3">
+        <div class="row">
+            <p class="text-ceter fs-4">Best Seller Product</p>
+
+            <div class="col-md-2" th:each="p:${bestSeller}">
+                <a class="text-decoration-none" th:href="@{'/product/' + ${p.id}}">
+                    <div class="card">
+                        <div class="card-body text-center shadow-none p-3 mt-3 mb-5 bg-light rounded">
+                            <img th:src="@{'/img/product_img/' + ${p.image}}" alt="" height="140px" width="65%">
+                            <p class="text-center mt-5 text-dark">[[${p.title}]]</p>
+                            <p class="text-center mt-5 text-dark">Sold: [[${p.sold}]]</p>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
+</th:block>
+
+    <th:block th:if="${bestSeller.size() >=4 && bestSeller.size() < 6}" >
+        <div class="container-fluid bg-light p-3">
+            <div class="row">
+                <p class="text-ceter fs-4">Best Seller Product</p>
+
+                <div class="col-md-3" th:each="p:${bestSeller}">
+                    <a class="text-decoration-none" th:href="@{'/product/' + ${p.id}}">
+                        <div class="card">
+                            <div class="card-body text-center shadow-none p-3 mt-3 mb-5 bg-light rounded">
+                                <img th:src="@{'/img/product_img/' + ${p.image}}" alt="" height="140px" width="65%">
+                                <p class="text-center mt-5 text-dark">[[${p.title}]]</p>
+                                <p class="text-center mt-5 text-dark">Sold: [[${p.sold}]]</p>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </th:block>
+
+    <th:block th:if="${bestSeller.size() >= 2 && bestSeller.size() < 4}" >
+        <div class="container-fluid bg-light p-3">
+            <div class="row">
+                <p class="text-ceter fs-4">Best Seller Product</p>
+
+                <div class="col-md-4" th:each="p:${bestSeller}">
+                    <a class="text-decoration-none" th:href="@{'/product/' + ${p.id}}">
+                        <div class="card">
+                            <div class="card-body text-center shadow-none p-3 mt-3 mb-5 bg-light rounded">
+                                <img th:src="@{'/img/product_img/' + ${p.image}}" alt="" height="140px" width="65%">
+                                <p class="text-center mt-5 text-dark">[[${p.title}]]</p>
+                                <p class="text-center mt-5 text-dark">Sold: [[${p.sold}]]</p>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </th:block>
+
+    <th:block th:if="${bestSeller.size() == 2}" >
+        <div class="container-fluid bg-light p-3">
+            <div class="row">
+                <p class="text-ceter fs-4">Best Seller Product</p>
+
+                <div class="col-md-6" th:each="p:${bestSeller}">
+                    <a class="text-decoration-none" th:href="@{'/product/' + ${p.id}}">
+                        <div class="card">
+                            <div class="card-body text-center shadow-none p-3 mt-3 mb-5 bg-light rounded">
+                                <img th:src="@{'/img/product_img/' + ${p.image}}" alt="" height="140px" width="65%">
+                                <p class="text-center mt-5 text-dark">[[${p.title}]]</p>
+                                <p class="text-center mt-5 text-dark">Sold: [[${p.sold}]]</p>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </th:block>
+
+    <th:block th:if="${bestSeller.size() == 1}" >
+        <div class="container-fluid bg-light p-3">
+            <div class="row">
+                <p class="text-ceter fs-4">Best Seller Product</p>
+
+                <div class="col-md-12" th:each="p:${bestSeller}">
+                    <a class="text-decoration-none" th:href="@{'/product/' + ${p.id}}">
+                        <div class="card">
+                            <div class="card-body text-center shadow-none p-3 mt-3 mb-5 bg-light rounded">
+                                <img th:src="@{'/img/product_img/' + ${p.image}}" alt="" height="140px" width="65%">
+                                <p class="text-center mt-5 text-dark">[[${p.title}]]</p>
+                                <p class="text-center mt-5 text-dark">Sold: [[${p.sold}]]</p>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </th:block>
+
+    <th:block th:if="${bestSeller.size() < 1}" >
+<!--        <div class="container-fluid bg-light p-3">-->
+<!--            <div class="row">-->
+<!--                <p class="text-ceter fs-12">Currently, There's not available the best product seller !</p>-->
+
+
+<!--            </div>-->
+<!--                    </a>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
+    </th:block>
+
+
+    <!--End the best seller Product Module-->
+
+
+
+
+
 </section>
 
 </body>

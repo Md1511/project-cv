@@ -42,12 +42,20 @@
                                 <span class="badge bg-success">Available</span>
                             </th:block>
 
+
+
                             <th:block th:unless="${product.stock > 0}">
                                 <span class="badge bg-warning">Out Of Stock</span>
                             </th:block>
 
                              <br>
                                 Category : [[${product.title}]] <br> Policy : 7 Days Replacamnt & Return
+                            <br>
+                            <br>
+                            <br>
+                            Sold: [[${product.sold}]]
+                            <br>
+                            Quantity in stock: [[${product.stock}]]
                         </p>
 
                         <th:block th:if="${product.discount > 0}">
@@ -91,6 +99,12 @@
 
                             <th:block th:unless="${userr==null}">
                                 <a th:href="@{'/user/addCart?pid=' + ${product.id} + '&uid=' + ${userr.id}}" class="btn btn-danger col-md-12">Add To Cart</a>
+                            </th:block>
+
+                            <th:block>
+                                <p class="text-warning">
+                                    [[${soss}]]
+                                </p>
                             </th:block>
 
                         </th:block>

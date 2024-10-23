@@ -3,6 +3,7 @@ package com.alandha.shopping_cart.service;
 import com.alandha.shopping_cart.model.*;
 import com.alandha.shopping_cart.repository.CartRepository;
 import com.alandha.shopping_cart.repository.ProductOrderRepository;
+import com.alandha.shopping_cart.repository.ProductRepository;
 import com.alandha.shopping_cart.util.CommonUtil;
 import com.alandha.shopping_cart.util.OrderStatus;
 import jakarta.mail.MessagingException;
@@ -11,6 +12,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.util.ObjectUtils;
 
 import java.io.UnsupportedEncodingException;
 import java.time.LocalDate;
@@ -26,6 +28,9 @@ public class OrderServiceImpl implements OrderService{
     private ProductOrderRepository productOrderRepository;
 
     @Autowired
+    private ProductRepository productRepository;
+
+    @Autowired
     private CartRepository cartRepository;
 
     @Autowired
@@ -36,6 +41,9 @@ public class OrderServiceImpl implements OrderService{
         List<Cart> carts = cartRepository.findByUserId(userId);
 
         for(Cart cart : carts) {
+            Product product = cart.getProduct();
+            product.setSold(product.getSold() + cart.getQuantity());
+            product.setStock(product.getStock() - cart.getQuantity());
 
             ProductOrder order = new ProductOrder();
             order.setOrderId(UUID.randomUUID().toString());
@@ -49,6 +57,7 @@ public class OrderServiceImpl implements OrderService{
             order.setStatus(OrderStatus.IN_PROGRESS.getName()   );
             order.setPaymentType(orderRequest.getPaymentType());
 
+
             OrderAddress address = new OrderAddress();
             address.setFirstName(orderRequest.getFirstName());
             address.setLastName(orderRequest.getLastName());
@@ -59,10 +68,15 @@ public class OrderServiceImpl implements OrderService{
             address.setState(orderRequest.getState());
             address.setPincode(orderRequest.getPincode());
 
+
             order.setOrderAddress(address);
 
+            cartRepository.delete(cart);
+            productRepository.save(product);
             ProductOrder saveOrder = productOrderRepository.save(order);
+            productRepository.save(product);
             commonUtil.sendMailForProductOrder(saveOrder, "success");
+
         }
     }
 
@@ -81,6 +95,14 @@ public class OrderServiceImpl implements OrderService{
            ProductOrder productOrder = findById.get();
            productOrder.setStatus(status);
            ProductOrder updateOrder = productOrderRepository.save(productOrder);
+
+           Product product = findById.get().getProduct();
+           if(!ObjectUtils.isEmpty(product)) {
+               product.setSold(product.getSold() - productOrder.getQuantity());
+               product.setStock(product.getStock() + productOrder.getQuantity());
+           }
+
+           productRepository.save(product);
            return updateOrder;
         }
         return null;

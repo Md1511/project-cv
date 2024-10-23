@@ -1,5 +1,14 @@
 package com.alandha.shopping_cart.util;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+
+@Getter
+@AllArgsConstructor
+@NoArgsConstructor
 public enum OrderStatus {
 
     IN_PROGRESS(1, "In Progress"),
@@ -14,24 +23,5 @@ public enum OrderStatus {
 
     private String name;
 
-    OrderStatus(Integer id, String name) {
-        this.id = id;
-        this.name = name;
-    }
 
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
 }
